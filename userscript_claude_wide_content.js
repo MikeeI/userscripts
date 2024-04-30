@@ -1,30 +1,35 @@
 // ==UserScript==
-// @name        Claude Wide Content
+// @name        Claude Adjustable Wide Content
 // @namespace   https://claude.ai/
-// @version     1.0.2
-// @description Make the contents in Claude wider
+// @version     1.0.3
+// @description Adjustably widen the contents in Claude
 // @author      gtfish, MikeeI
 // @match       https://claude.ai/*
 // @icon        https://www.google.com/s2/favicons?sz=64&domain=claude.ai
 // @grant       GM_addStyle
 // @license     GPL-3.0-or-later
-// @updateURL   https://raw.githubusercontent.com/MikeeI/userscripts/main/userscript_claude_wide_content.js
-// @downloadURL https://raw.githubusercontent.com/MikeeI/userscripts/main/userscript_claude_wide_content.js
+// @updateURL   https://raw.githubusercontent.com/MikeeI/userscripts/main/userscript_claude_adjustable_wide_content.js
+// @downloadURL https://raw.githubusercontent.com/MikeeI/userscripts/main/userscript_claude_adjustable_wide_content.js
 // ==/UserScript==
 
 (function () {
     'use strict';
 
+    // Adjust these factors to change the width more precisely
+    const widthFactorFor3xl = 0.7; // 90% of the viewport width
+    const widthFactorFor75ch = 80; // fixed 80 characters wide
+    const widthFactorFor60ch = 80; // fixed 80 characters wide
+
     function updateStyles() {
         GM_addStyle(`
             .max-w-3xl {
-                max-width: ${Math.floor(window.innerWidth * 0.05)}rem;
+                max-width: ${Math.floor(window.innerWidth * widthFactorFor3xl)}px;
             }
             .max-w-\\[75ch\\] {
-                max-width: ${Math.floor(window.innerWidth * 0.1)}ch;
+                max-width: ${widthFactorFor75ch}ch;
             }
             .max-w-\\[60ch\\] {
-                max-width: ${Math.floor(window.innerWidth * 0.1)}ch;
+                max-width: ${widthFactorFor60ch}ch;
             }
         `);
     }
